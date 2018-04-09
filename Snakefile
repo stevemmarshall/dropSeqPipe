@@ -6,9 +6,13 @@ configfile: "config.yaml"
 
 # Get sample names from samples.csv
 samples = pd.read_table("samples.csv", header=0, sep=',', index_col=0)
+RNA_samples = df = samples[(samples['data_source']=='RNA')]
+ADT_samples = df = samples[(samples['data_source']=='ADT')]
+HTO_samples = df = samples[(samples['data_source']=='HTO')]
+
 
 # Get read_lengths from samples.csv
-read_lengths = list(samples.loc[:,'read_length'])
+read_lengths = list(RNA_samples.loc[:,'read_length'])
 
 # Constraint sample names wildcards
 wildcard_constraints:
@@ -89,16 +93,16 @@ rule filter:
         
 rule map:
     input:  
-        expand('data/{sample}_final.bam', sample=samples.index),
-        expand('logs/{sample}_hist_out_cell.txt', sample=samples.index),
-        expand('plots/{sample}_knee_plot.pdf', sample=samples.index),
+        expand('data/{sample}_final.bam', sample=RNA_samples.index),
+        expand('logs/{sample}_hist_out_cell.txt', sample=RNA_samples.index),
+        expand('plots/{sample}_knee_plot.pdf', sample=RNA_samples.index),
         'reports/star.html',
         'plots/yield.pdf'
         
 rule extract:
     input:
-        expand('logs/{sample}_umi_per_gene.tsv', sample=samples.index),
-        expand('plots/{sample}_rna_metrics.pdf', sample=samples.index),
+        expand('logs/{sample}_umi_per_gene.tsv', sample=RNA_samples.index),
+        expand('plots/{sample}_rna_metrics.pdf', sample=RNA_samples.index),
         'summary/umi_expression_matrix.tsv',
         'summary/counts_expression_matrix.tsv'
         

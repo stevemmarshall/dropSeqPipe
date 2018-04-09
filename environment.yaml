@@ -9,7 +9,7 @@ dependencies:
   - picard=2.14.1.0
   - graphviz
   - python
-  - snakemake=4.7.0
+  - snakemake=4.8.0
   - r=3.4.1
   - r-ggplot2
   - pytz

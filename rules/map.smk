@@ -6,6 +6,11 @@ ruleorder: plot_knee_plot_whitelist > plot_knee_plot
 #Which rules will be run on the host computer and not sent to nodes
 localrules: multiqc_star, plot_yield, plot_knee_plot, plot_knee_plot_whitelist
 
+rule CITE_count:
+	input:
+	output:
+	conda: '../envs/CiteSeqCount.yaml'
+	script: '../scripts/CITESeqCount.py'
 
 rule STAR_align:
 	input:

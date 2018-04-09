@@ -102,7 +102,6 @@ rule create_star_index:
 		--genomeDir {params.genomeDir}\
 		--genomeFastaFiles {input.reference_file}\
 		--sjdbGTFfile {input.annotation_file}\
-		--limitGenomeGenerateRAM 30000000000\
 		--sjdbOverhang {params.sjdbOverhang}\
 		--genomeChrBinNbits {params.genomeChrBinNbits}
 		"""
