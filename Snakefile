@@ -59,6 +59,7 @@ rule all:
         expand('plots/{sample}_knee_plot.pdf', sample=samples.index),
         'reports/star.html',
         'plots/yield.pdf',
+        expand('summary/{sample}_tag_counts.csv', sample=ADT_samples.index),
         #extract
         expand('logs/{sample}_umi_per_gene.tsv', sample=samples.index),
         expand('plots/{sample}_rna_metrics.pdf', sample=samples.index),
@@ -97,7 +98,8 @@ rule map:
         expand('logs/{sample}_hist_out_cell.txt', sample=RNA_samples.index),
         expand('plots/{sample}_knee_plot.pdf', sample=RNA_samples.index),
         'reports/star.html',
-        'plots/yield.pdf'
+        'plots/yield.pdf',
+        expand('summary/{sample}_tag_counts.csv', sample=ADT_samples.index)
         
 rule extract:
     input:

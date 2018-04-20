@@ -7,8 +7,8 @@ ruleorder: plot_knee_plot_whitelist > plot_knee_plot
 localrules: multiqc_star, plot_yield, plot_knee_plot, plot_knee_plot_whitelist
 
 rule CITE_count:
-	input:
-	output:
+	input: 'data/{sample}_filtered.fastq.gz'
+	output: 'summary/{sample}_tag_counts.csv'
 	conda: '../envs/CiteSeqCount.yaml'
 	script: '../scripts/CITESeqCount.py'
 
