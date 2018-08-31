@@ -1,6 +1,7 @@
 library(ggplot2)
 library(reshape2)
 library(stringr)
+library(dplyr)
 
 
 
@@ -30,12 +31,20 @@ data$Pair = factor(data$Pair)
 levels(data$Adapter) = levels(temp$Adapter)
 levels(data$Pair) = levels(temp$Pair)
 
-p1 = ggplot(data, aes(x=Sample, y = Count, fill = Adapter))
+data_new = data %>%
+  group_by(Sample,Pair) %>%
+  add_tally(Count) %>%
+  mutate(freq=Count/n)
+
+p1 = ggplot(data_new, aes(x=Sample, y =  freq, fill = Adapter))
 p1 = p1 + geom_bar(stat = 'identity')
 p1 = p1 + theme(axis.text.x=element_text(angle = 90, hjust = 0))
 p1 = p1 + facet_grid(~Batch, scales = "free")
 p1 = p1 + facet_wrap(~Pair, nrow=2, scales="free") + theme_minimal()
 p1 = p1 + ggtitle('Comparison accross samples of adapter content')
+p1 = p1 + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+p1 = p1 + scale_x_discrete(label=abbreviate)
+p1 = p1 + scale_y_continuous(labels = scales::percent)
 
 
 ggsave(plot=p1, filename=snakemake@output$pdf)

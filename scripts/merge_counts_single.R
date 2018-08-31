@@ -1,3 +1,4 @@
+print(snakemake)
 samples = snakemake@params$sample_names
 read_list = c()
 for (i in 1:length(samples)){

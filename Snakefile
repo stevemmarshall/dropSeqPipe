@@ -8,7 +8,7 @@ configfile: "config.yaml"
 # Get sample names from samples.csv
 samples = pd.read_table("samples.csv", header=0, sep=',', index_col=0)
 # Get read_lengths from samples.csv
-read_lengths = list(lanes.loc[:,'read_length'])
+read_lengths = list(samples.loc[:,'read_length'])
 
 # Constraint sample names wildcards
 wildcard_constraints:
@@ -46,10 +46,6 @@ rule all:
         expand('plots/{sample}_knee_plot.pdf', sample=samples.index),
         'reports/star.html',
         'plots/yield.pdf',
-        'plots/UMI_vs_counts.pdf',
-        'plots/UMI_vs_gene.pdf',
-        'plots/Count_vs_gene.pdf',
-        'summary/R_Seurat_objects.rdata',
         #extract
         expand('logs/dropseq_tools/{sample}_umi_per_gene.tsv', sample=samples.index),
         expand('plots/{sample}_rna_metrics.pdf', sample=samples.index),
@@ -82,14 +78,6 @@ rule map:
         expand('logs/dropseq_tools/{sample}_hist_out_cell.txt', sample=samples.index),
         expand('plots/{sample}_knee_plot.pdf', sample=samples.index),
         'reports/star.html',
-        'plots/violinplots_comparison_UMI.pdf',
-        # 'plots/UMI_vs_counts.html',
-        'plots/UMI_vs_counts.pdf',
-        # 'plots/UMI_vs_gene.html',
-        'plots/UMI_vs_gene.pdf',
-        # 'plots/Count_vs_gene.html',
-        'plots/Count_vs_gene.pdf',
-        'summary/R_Seurat_objects.rdata',
         'plots/yield.pdf'
         
 rule extract:

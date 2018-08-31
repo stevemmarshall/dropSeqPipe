@@ -33,7 +33,7 @@ rule STAR_align:
 		index=lambda wildcards: star_index_prefix + '_' + str(samples.loc[wildcards.sample,'read_length']) + '/'
 	threads: 24
 	wrapper:
-		"0.22.0/bio/star/align"
+		"0.27.1/bio/star/align"
 
 rule multiqc_star:
 	input:
@@ -42,7 +42,7 @@ rule multiqc_star:
 		html='reports/star.html'
 	params: '-m star'
 	wrapper:
-		'0.21.0/bio/multiqc'
+		'0.27.1/bio/multiqc'
 
 
 rule MergeBamAlignment:
@@ -182,3 +182,5 @@ rule violine_plots:
 		R_objects='summary/R_Seurat_objects.rdata'
 	script:
 		'../scripts/plot_violine.R'
+
+

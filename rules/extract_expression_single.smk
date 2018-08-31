@@ -7,7 +7,7 @@ ruleorder: SingleCellRnaSeqMetricsCollector_whitelist > SingleCellRnaSeqMetricsC
 ruleorder: plot_rna_metrics_whitelist > plot_rna_metrics
 
 #Which rules will be run on the host computer and not sent to nodes
-localrules: plot_umi_per_gene, plot_rna_metrics, plot_rna_metrics_whitelist, merge_umi, merge_counts
+localrules: plot_umi_per_gene, plot_rna_metrics, plot_rna_metrics_whitelist
 
 rule extract_umi_expression:
 	input:
@@ -18,7 +18,7 @@ rule extract_umi_expression:
 		summary='data/{sample}/dge.summary.txt',
 	params:
 		count_per_umi=config['EXTRACTION']['minimum-counts-per-UMI'],
-		num_cells=lambda wildcards: samples.loc[wildcards.sample,'expected_cells'],
+		num_cells=lambda wildcards: int(samples.loc[wildcards.sample,'expected_cells']),
 		cellBarcodeEditDistance=config['EXTRACTION']['UMI-edit-distance'],
 		temp_directory=config['LOCAL']['temp-directory'],
 		memory=config['LOCAL']['memory']
@@ -31,7 +31,6 @@ rule extract_umi_expression:
 		SUMMARY={log.summary}\
 		NUM_CORE_BARCODES={params.num_cells}\
 		MIN_BC_READ_THRESHOLD={params.count_per_umi}"""
-
 
 rule extract_umi_expression_whitelist:
 	input: 
@@ -86,7 +85,7 @@ rule extract_reads_expression:
 		'data/{sample}/counts_expression_matrix.tsv'
 	params:
 		count_per_umi=config['EXTRACTION']['minimum-counts-per-UMI'],
-		num_cells=lambda wildcards: samples.loc[wildcards.sample,'expected_cells'],
+		num_cells=lambda wildcards: int(samples.loc[wildcards.sample,'expected_cells']),
 		cellBarcodeEditDistance=config['EXTRACTION']['UMI-edit-distance'],	
 		temp_directory=config['LOCAL']['temp-directory'],
 		memory=config['LOCAL']['memory']
@@ -107,7 +106,7 @@ rule extract_umi_per_gene:
 	output:
 		'logs/dropseq_tools/{sample}_umi_per_gene.tsv'
 	params:
-		num_cells=lambda wildcards: samples.loc[wildcards.sample,'expected_cells'],
+		num_cells=lambda wildcards: int(samples.loc[wildcards.sample,'expected_cells']),
 		cellBarcodeEditDistance=config['EXTRACTION']['UMI-edit-distance'],	
 		temp_directory=config['LOCAL']['temp-directory'],
 		memory=config['LOCAL']['memory']
@@ -144,7 +143,7 @@ rule SingleCellRnaSeqMetricsCollector:
 		refFlat="{}.refFlat".format(annotation_prefix),
 		rRNA_intervals="{}.rRNA.intervals".format(reference_prefix),
 	params:
-		cells=lambda wildcards: samples.loc[wildcards.sample,'expected_cells'],		
+		cells=lambda wildcards: int(samples.loc[wildcards.sample,'expected_cells']),	
 		temp_directory=config['LOCAL']['temp-directory'],
 		memory=config['LOCAL']['memory']
 	output:
@@ -156,8 +155,7 @@ rule SingleCellRnaSeqMetricsCollector:
 		OUTPUT={output}\
 		ANNOTATIONS_FILE={input.refFlat}\
 		NUM_CORE_BARCODES={params.cells}\
-		RIBOSOMAL_INTERVALS={input.rRNA_intervals}
-		"""
+		RIBOSOMAL_INTERVALS={input.rRNA_intervals}"""
 
 rule SingleCellRnaSeqMetricsCollector_whitelist:
 	input:
@@ -177,8 +175,7 @@ rule SingleCellRnaSeqMetricsCollector_whitelist:
 		OUTPUT={output}\
 		ANNOTATIONS_FILE={input.refFlat}\
 		CELL_BC_FILE={input.barcode_whitelist}\
-		RIBOSOMAL_INTERVALS={input.rRNA_intervals}
-		"""
+		RIBOSOMAL_INTERVALS={input.rRNA_intervals}"""
 
 rule plot_umi_per_gene:
 	input:
@@ -195,7 +192,7 @@ rule plot_rna_metrics:
 	input:
 		'logs/dropseq_tools/{sample}_rna_metrics.txt'
 	params: 
-		cells=lambda wildcards: samples.loc[wildcards.sample,'expected_cells']
+		cells=lambda wildcards: int(samples.loc[wildcards.sample,'expected_cells'])
 	conda: '../envs/plots.yaml'
 	output:
 		pdf='plots/{sample}_rna_metrics.pdf'
@@ -226,8 +223,6 @@ rule merge_umi:
 rule merge_counts:
 	input:
 		expand('data/{sample}/counts_expression_matrix.tsv', sample=samples.index)
-	params:
-		sample_names=lambda wildcards: samples.index
 	conda: '../envs/merge.yaml'
 	output:
 		'summary/counts_expression_matrix.tsv'

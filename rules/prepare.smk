@@ -2,24 +2,22 @@ import re
 import glob
 import gzip
 from collections import defaultdict
-
-multi_lane_pattern = re.compile("../data\/(.*)_(L[0-9]{3})_(R[1-2])_001.fastq.gz")
-
+multi_lane_pattern = re.compile("data\/(.*)_(L[0-9]{3})_(R[1-2])_001.fastq.gz")
 
 def get_input_files(wildcards):
-    samples = [f for f in glob.glob("../data/*.fastq.gz") if re.match(multi_lane_pattern,f)]
+    samples = [f for f in glob.glob("data/*.fastq.gz") if re.match(multi_lane_pattern,f)]
     return(samples)
 
-lanes = sorted(list(set([re.findall(multi_lane_pattern,f)[0][1] for f in glob.glob("../data/*.fastq.gz") if re.match(multi_lane_pattern,f)])))
-samples = [re.findall(multi_lane_pattern,f)[0][0] for f in glob.glob("../data/*.fastq.gz") if re.match(multi_lane_pattern,f)]
-
+lanes = sorted(list(set([re.findall(multi_lane_pattern,f)[0][1] for f in glob.glob("data/*.fastq.gz") if re.match(multi_lane_pattern,f)])))
+samples = [re.findall(multi_lane_pattern,f)[0][0] for f in glob.glob("data/*.fastq.gz") if re.match(multi_lane_pattern,f)]
 
 
 
 rule all:
     input:
         expand('data/{sample}_R1.fastq.gz',sample=samples),
-        expand('data/{sample}_R2.fastq.gz',sample=samples)
+        expand('data/{sample}_R2.fastq.gz',sample=samples),
+        'samples.csv'
 
 
 

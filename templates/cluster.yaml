@@ -1,27 +1,33 @@
 __default__:
     time: "03:00:00"
-    n: 1
-    mem: 4g
+    threads: "{threads}"
+    mem: 4G
     output: "logs/cluster/{rule}.{wildcards.sample}.out"
     error: "logs/cluster/{rule}.{wildcards.sample}.err"
 fastqc_barcodes:
     jobname: fastqc_barcodes
     time: "01:00:00"
-    mem: 1g
+    mem: 1G
 fastqc_reads:
     jobname: fastqc_reads
     time: "01:00:00"
-    mem: 1g
-trim_single:
-    jobname: trim_single
-    n: 2
-trim_single_custom:
-    n: 2
+    mem: 1G
 STAR_align:
-    n: 24
+    threads: "{threads}"
+    mem: 60G
 create_star_index:
-    n: 12
+    threads: "{threads}"
     time: "02:00:00"
-    mem: 30g
+    mem: 70G
     output: "logs/cluster/{rule}.out"
     error: "logs/cluster/{rule}.err"
+cutadapt_R1:
+    jobname: cutadapt_R1
+    time: "01:00:00"
+    mem: 10G
+    threads: "{threads}"
+cutadapt_R2:
+    jobname: cutadapt_R2
+    time: "01:00:00"
+    mem: 10G
+    threads: "{threads}"

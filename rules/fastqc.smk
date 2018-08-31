@@ -6,24 +6,24 @@ localrules: multiqc_fastqc_reads, multiqc_fastqc_barcodes
 rule fastqc_barcodes:
 	"""Create fastqc report"""
 	input: 
-		'data/{sample}_R1_001.fastq.gz'
+		'data/{sample}_R1.fastq.gz'
 	output:
 		html='logs/fastqc/{sample}_R1_fastqc.html',
 		zip='logs/fastqc/{sample}_R1_fastqc.zip'
 	params: '--extract'
 	wrapper:
-		'0.21.0/bio/fastqc'
+		'0.27.1/bio/fastqc'
 
 rule fastqc_reads:
 	"""Create fastqc report"""
 	input: 
-		'data/{sample}_R2_001.fastq.gz'
+		'data/{sample}_R2.fastq.gz'
 	output:
 		html='logs/fastqc/{sample}_R2_fastqc.html',
 		zip='logs/fastqc/{sample}_R2_fastqc.zip'
 	params: '--extract'
 	wrapper:
-		'0.21.0/bio/fastqc'
+		'0.27.1/bio/fastqc'
 
 
 rule multiqc_fastqc_barcodes:
@@ -33,7 +33,7 @@ rule multiqc_fastqc_barcodes:
 		html='reports/fastqc_barcodes.html'
 	params: '-m fastqc --ignore *_R2*'
 	wrapper:
-		'0.21.0/bio/multiqc'
+		'0.27.1/bio/multiqc'
 
 rule multiqc_fastqc_reads:
 	input: 
@@ -42,4 +42,4 @@ rule multiqc_fastqc_reads:
 		html='reports/fastqc_reads.html'
 	params: '-m fastqc --ignore *_R1*'
 	wrapper:
-		'0.21.0/bio/multiqc'
+		'0.27.1/bio/multiqc'

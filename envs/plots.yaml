@@ -6,4 +6,5 @@ dependencies:
   - r-gridextra
   - r-reshape2
   - r-viridis
-  - r-stringdist
+  - r-stringr
+  - r-dplyr=0.7.4

@@ -1,0 +1,3 @@
+WorkflowError in line 6 of /gpfs/commons/home/roellip-519/dropSeqPipe/Snakefile:
+Config file config.yaml not found.
+  File "/gpfs/commons/home/roellip-519/dropSeqPipe/Snakefile", line 6, in <module>
