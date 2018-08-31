@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0] - 31.08.18
+
+### Changed
+- Fixes for bugs when not enforcing int on some lambda functions in params.
+- updated wrapper versions to `0.27.1`
+- dropSeqPipe is now officially a snakemake-workflow. Check out all the other available workflows on [github](https://github.com/snakemake-workflows/docs)
+- Proposed way of using the pipeline is now different. Instead of running the pipeline on the data from the same folder, you should use the `--directory` option instead.
+
+### Added
+- Added drop-seq tools to the conda repo. Thanks to @cgirardot!
+- New scatter plots showing umi vs coutns and gene vs counts. Thanks to @seb-mueller!
+- New violin plots different meta data metrics. Thanks to @seb-mueller!
+- The pipeline now creates a v2.3 seurat object as output. Thanks to @seb-mueller!
+
+### Removed
+- `drop-seq-tools-warpper.sh` has been removed. Drop-seq tools is now loaded and called via it's own environnement.
+
+
 ## [0.31a]
 ### Changed
 - fix on species plot.

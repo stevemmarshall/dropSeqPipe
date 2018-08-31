@@ -54,38 +54,38 @@ rule clean_cutadapt:
 
 
 rule repair:
-	input:
-		R1='data/{sample}/trimmmed_R1.fastq.gz',
-		R2='data/{sample}/trimmmed_R2.fastq.gz'
-	output:
-		R1=temp('data/{sample}/trimmmed_repaired_R1.fastq.gz'),
-		R2=temp('data/{sample}/trimmmed_repaired_R2.fastq.gz')
-	log:
-		'logs/bbmap/{sample}_repair.txt'
-	conda: '../envs/bbmap.yaml'
-	shell:
-		"""repair.sh -Xmx400g in={input.R1} in2={input.R2} out1={output.R1} out2={output.R2} repair=t 2> {log}"""
+    input:
+        R1='data/{sample}/trimmmed_R1.fastq.gz',
+        R2='data/{sample}/trimmmed_R2.fastq.gz'
+    output:
+        R1=temp('data/{sample}/trimmmed_repaired_R1.fastq.gz'),
+        R2=temp('data/{sample}/trimmmed_repaired_R2.fastq.gz')
+    log:
+        'logs/bbmap/{sample}_repair.txt'
+    conda: '../envs/bbmap.yaml'
+    shell:
+        """repair.sh -Xmx400g in={input.R1} in2={input.R2} out1={output.R1} out2={output.R2} repair=t 2> {log}"""
 
 
 rule plot_adapter_content:
-	input:
-		expand('logs/cutadapt/{sample}.clean_qc.csv', sample=samples.index)
-	params:
-		Cell_length=config['FILTER']['cell-barcode']['end'] - config['FILTER']['cell-barcode']['start'] + 1,
-		UMI_length=config['FILTER']['UMI-barcode']['end'] - config['FILTER']['UMI-barcode']['start'] + 1,
-		sample_names=lambda wildcards: samples.index,
-		batches=lambda wildcards: samples.loc[samples.index, 'batch']
-	conda: '../envs/plots.yaml'
-	output:
-		pdf='plots/adapter_content.pdf'
-	script:
-		'../scripts/plot_adapter_content.R'
+    input:
+        expand('logs/cutadapt/{sample}.clean_qc.csv', sample=samples.index)
+    params:
+        Cell_length=config['FILTER']['cell-barcode']['end'] - config['FILTER']['cell-barcode']['start'] + 1,
+        UMI_length=config['FILTER']['UMI-barcode']['end'] - config['FILTER']['UMI-barcode']['start'] + 1,
+        sample_names=lambda wildcards: samples.index,
+        batches=lambda wildcards: samples.loc[samples.index, 'batch']
+    conda: '../envs/plots.yaml'
+    output:
+        pdf='plots/adapter_content.pdf'
+    script:
+        '../scripts/plot_adapter_content.R'
 
 rule multiqc_trimmomatic:
-	input:
-		expand('logs/cutadapt/{sample}_R1.qc.txt', sample=samples.index)
-	params: '-m cutadapt'
-	output:
-		html='reports/filter.html'
-	wrapper:
-		'0.21.0/bio/multiqc'
+    input:
+        expand('logs/cutadapt/{sample}_R1.qc.txt', sample=samples.index)
+    params: '-m cutadapt'
+    output:
+        html='reports/filter.html'
+    wrapper:
+        '0.21.0/bio/multiqc'
