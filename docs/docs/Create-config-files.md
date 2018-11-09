@@ -6,13 +6,13 @@ In order to run the pipeline you will need to complete the config.yaml file and 
 ## 1. config.yaml - Executables, system and experiment parameters
 The config.yaml contains the paths to the the Drop-Seq tools wrapper, paths to references and parameters for each step of the pipeline.
 ```
-    :*emp-directory: /path/to/temp/or/scratch/folder
-    r*q-wrapper: /path/to/drop-seq-tools-wrapper.sh
-memory: 4g
+LOCAL:
+    temp-directory: /path/to/temp/or/scratch/folder
+    memory: 4g
 META:
-    *cies:
-    *   - SPECIES_ONE
-    *   - SPECIES_TWO
+    species:
+       - SPECIES_ONE
+       - SPECIES_TWO
     ratio: 0.2
     reference-file: reference.fasta
     annotation-file: annotation.gtf
@@ -60,7 +60,6 @@ Please note the "space" after the colon, is needed for the yaml to work.
 ## Subsections
 ### [LOCAL]
 * `temp-directory` is the temp or scratch folder with enough space to keep temporary files.
-* `dropseq-wrapper` is the wrapper that will call all the drop-seq-tools executables.
 * `memory` is the maximum memory allocation pool for a Java Virtual Machine.
 
 ### [META]

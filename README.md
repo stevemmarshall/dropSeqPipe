@@ -1,4 +1,4 @@
-[![Snakemake](https://img.shields.io/badge/snakemake-≥4.1.0-brightgreen.svg)](https://snakemake.bitbucket.io)
+[![Snakemake](https://img.shields.io/badge/snakemake-≥5.3.0-brightgreen.svg)](https://snakemake.bitbucket.io)
 [![Build Status](https://travis-ci.org/Hoohm/dropSeqPipe.svg?branch=master)](https://travis-ci.org/Hoohm/dropSeqPipe)
 
 Description
@@ -23,6 +23,10 @@ This package is trying to be as user friendly as possible. One of the hopes is t
 * Sebastian Mueller (@seb-mueller)
 * Charles Girardot (@cgirardot)
 
+Documentation
+------------------
+You can find the documentation [here](https://hoohm.github.io/dropSeqPipe/)
+
 ## Usage
 
 ### Step 1: Install workflow
@@ -34,7 +38,7 @@ In any case, if you use this workflow in a paper, don't forget to give credits t
 
 ### Step 2: Configure workflow
 
-Configure the workflow according to your needs via editing the file `config.yaml` and the  `samples.tsv` following those [instructions](https://github.com/Hoohm/dropSeqPipe/wiki/Create-config-files)
+Configure the workflow according to your needs via editing the file `config.yaml` and the  `samples.tsv` following those [instructions](https://hoohm.github.io/dropSeqPipe/Create-config-files/)
 
 ### Step 3: Execute workflow
 
@@ -63,9 +67,6 @@ After successful execution, you can create a self-contained report with all resu
     snakemake --report report.html
 
 
-Documentation
-------------------
-You can find the documentation [here](https://hoohm.github.io/dropSeqPipe/)
 
 Future implementations
 ---------------------------
