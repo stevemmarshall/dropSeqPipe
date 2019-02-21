@@ -7,7 +7,7 @@ Fastqc, STAR and cutadapt reports are generated as [multiqc reports](http://mult
 
 
 ## 1. Adapter content
-![Adapter content](images/adapter_content.pdf)
+![Adapter content](images/adapter_content.png)
 On the x axis are the samples.
 On the y axis are the percentages of total adapters that have been found (and trimmed) in respective fastq files based on the `adapter-file` provided via `config.yaml`.
 

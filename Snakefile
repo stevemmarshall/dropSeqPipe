@@ -13,7 +13,7 @@ min_version("5.1.2")
 try:
     configfile_path = config['configfile_path']
 except:
-    configfile_path = "config.yaml"    
+    configfile_path = "config.yaml"
 configfile: configfile_path
 
 
