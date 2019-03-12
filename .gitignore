@@ -1,1 +1,5 @@
-
+dist/
+build/
+dropSeqPipe.egg-info/
+__pycache__
+*.pyc
