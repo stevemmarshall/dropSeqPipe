@@ -1,0 +1,14 @@
+Metadata-Version: 1.2
+Name: dropSeqPipe
+Version: 0.4
+Summary: A python wrapper to run and install dropSeqPipe as a python package
+Home-page: https://github.com/Hoohm/dropSeqPipe
+Author: Roelli Patrick
+Author-email: patrick.roelli@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6

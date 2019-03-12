@@ -1,0 +1,3 @@
+WorkflowError in line 17 of /home/proelli/Documents/PhD/Workflows/Snakemake/dropSeqPipe/Snakefile:
+Config file config.yaml not found.
+  File "/home/proelli/Documents/PhD/Workflows/Snakemake/dropSeqPipe/Snakefile", line 17, in <module>
